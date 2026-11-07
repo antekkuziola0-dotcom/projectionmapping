@@ -25,8 +25,8 @@
 <div class="handle" data-index="0"></div><div class="handle" data-index="1"></div><div class="handle" data-index="2"></div><div class="handle" data-index="3"></div>
 <script>
 'use strict';
-// Wgraj pliki 01.webm ... 15.webm obok index.html (do katalogu głównego).
-const files = Array.from({length:15},(_,i)=>`${String(i+1).padStart(2,'0')}.webm`);
+// Wgraj pliki 01.webm ... 13.webm obok index.html (do katalogu głównego).
+const files = Array.from({length:13},(_,i)=>`${String(i+1).padStart(2,'0')}.webm`);
 const video=document.getElementById('video');
 const canvas=document.getElementById('screen');
 const status=document.getElementById('status');
@@ -102,9 +102,9 @@ let index=0,errors=0;
 function load(i){index=(i+files.length)%files.length;status.textContent=`Film ${index+1} z ${files.length}: ${files[index]}`;video.src=files[index];video.load();video.play().catch(()=>{status.textContent+=' — kliknij Start, jeśli przeglądarka blokuje autoplay';});}
 function next(){load(index+1);}
 video.addEventListener('ended',next);
-video.addEventListener('playing',()=>{errors=0;status.textContent=`▶ Film ${index+1} z 15: ${files[index]}`;});
+video.addEventListener('playing',()=>{errors=0;status.textContent=`▶ Film ${index+1} z ${files.length}: ${files[index]}`;});
 video.addEventListener('error',()=>{
- errors++;if(errors>=files.length){status.textContent='Nie znaleziono żadnego działającego filmu. Sprawdź, czy pliki 01.webm–15.webm są obok index.html.';return;}
+ errors++;if(errors>=files.length){status.textContent='Nie znaleziono żadnego działającego filmu. Sprawdź, czy pliki 01.webm–13.webm są obok index.html.';return;}
  next();
 });
 document.getElementById('play').onclick=()=>video.paused?video.play().catch(e=>status.textContent=e.message):video.pause();
