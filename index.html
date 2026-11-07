@@ -3,17 +3,13 @@
 <style>
 :root{color-scheme:dark;--bg:#090e18;--panel:#131d30;--edge:#2b3850;--txt:#e9f1ff;--muted:#94a9c7;--accent:#54b9ff}*{box-sizing:border-box}html,body{margin:0;height:100%;background:#000;color:var(--txt);font:13px system-ui,Segoe UI,sans-serif;overflow:hidden}button,input,select,textarea{font:inherit}button,select,input[type=number],input[type=text]{color:var(--txt);background:#26334b;border:1px solid #405472;border-radius:7px;padding:7px}button{cursor:pointer}button:hover{background:#354c71}button:disabled{opacity:.4;cursor:default}button.active{background:#126697;border-color:#58c5ff}button.warn{border-color:#a55566}input[type=range]{width:100%;accent-color:#4abaff}input[type=checkbox]{accent-color:#4abaff}label{display:block;color:var(--muted);margin:8px 0 3px}small,.sub{color:var(--muted)}h1{font-size:17px;margin:0 0 4px}h2{font-size:13px;margin:12px 0 7px;color:#b8d8ff}#app{display:flex;height:100dvh}#panel{width:355px;flex:0 0 355px;background:var(--panel);border-right:1px solid var(--edge);overflow:auto;z-index:3;padding:15px;scrollbar-width:thin}#stageWrap{position:relative;flex:1;min-width:0;background:black;overflow:hidden;touch-action:none}#stage{position:absolute;inset:0;width:100%;height:100%;display:block}#handles{position:absolute;inset:0;pointer-events:none}#handles .pt{position:absolute;width:17px;height:17px;border:2px solid white;border-radius:50%;background:#39bbffb8;transform:translate(-50%,-50%);cursor:move;pointer-events:auto;touch-action:none;box-shadow:0 0 0 3px #0009}#handles .pt.corner{background:#ffb347;width:21px;height:21px}#handles .pt.locked{display:none}#outTag{position:absolute;top:10px;left:12px;color:#d2e9ff88;pointer-events:none}#gridOverlay{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(#ffffff19 1px,transparent 1px),linear-gradient(90deg,#ffffff19 1px,transparent 1px);background-size:10% 10%}#stageWrap:not(.showGrid) #gridOverlay{display:none}#stageWrap.xray canvas{opacity:.07}#stageWrap.xray .pt{box-shadow:0 0 0 3px #18ff93}body.output #panel,body.output #handles,body.output #outTag,body.output #gridOverlay{display:none!important}body.output #app{display:block}body.output #stageWrap{height:100%;width:100%}body.output{cursor:none}body.uiHidden #panel,body.uiHidden #handles,body.uiHidden #outTag,body.uiHidden #gridOverlay{display:none!important}body.uiHidden #stageWrap{height:100%;width:100%}body.uiHidden #app{display:block}.line{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:7px 0}.line>*{min-width:0}.line button{flex:1}.columns{display:grid;grid-template-columns:1fr 1fr;gap:9px}.box{background:#0c1526;border:1px solid var(--edge);padding:9px;border-radius:9px;margin:9px 0}.tabs{display:flex;gap:4px;margin:12px 0}.tabs button{flex:1;padding:8px 3px}.tab{display:none}.tab.active{display:block}.rowItem{display:flex;align-items:center;gap:6px;padding:6px 4px;border-bottom:1px solid #26354a}.rowItem.selected{background:#1c4c6e;border-radius:5px}.rowItem .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}.rowItem button{padding:5px;flex:none}.tight input[type=number]{width:70px}.metric{display:flex;justify-content:space-between;color:var(--muted)}.metric b{color:var(--txt)}#preview{width:100%;aspect-ratio:16/9;background:black;object-fit:contain;border:1px solid var(--edge);border-radius:7px}#timeline{width:100%;margin:9px 0 2px}#status{padding:9px;background:#0c1526;border-radius:7px;color:#c3e5ff;line-height:1.4;overflow-wrap:anywhere}#toast{position:absolute;right:16px;bottom:16px;padding:11px 15px;background:#142f4c;border:1px solid #49afff;border-radius:9px;display:none;z-index:8;max-width:75%}#outputHint{display:none}body.output #outputHint{display:block;position:fixed;bottom:8px;right:10px;color:#aaa;opacity:.65;z-index:5}#upload{display:none}hr{border:0;border-top:1px solid #2d405b;margin:14px 0}@media(max-width:760px){#panel{width:255px;flex-basis:255px;padding:9px}h1{font-size:14px}.line button{padding:6px 3px}}@media(max-width:540px){#app{flex-direction:column}#panel{width:100%;flex:0 0 auto;height:47%;border-right:0;border-bottom:1px solid #3b506f}#stageWrap{min-height:53%}}
 
-/* ScreenWall-style role selector */
-#roleGate{position:fixed;inset:0;z-index:30;background:radial-gradient(ellipse at 50% 20%,#174472 0%,#0a1426 48%,#030810 100%);display:flex;align-items:center;justify-content:center;padding:20px}
-#roleGate[hidden]{display:none} .roleBox{width:min(760px,100%);text-align:center}.roleBox h1{font-size:clamp(24px,4vw,38px);margin:5px 0 10px}.roleBox p{color:#b9cce5;line-height:1.6;font-size:15px}.roleGrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}.roleChoice{min-height:190px;border:1px solid #4a6586;border-radius:18px;background:#13243e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;padding:26px;cursor:pointer}.roleChoice:hover,.roleChoice:focus-visible{border-color:#58c5ff;background:#1a3556;outline:2px solid #227eb9}.roleChoice .emoji{font-size:47px}.roleChoice b{font-size:21px}.roleChoice small{font-size:13px;line-height:1.5}.roleTools{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.roleTools button{flex:1}#connectionState{color:#9de1ff;font-size:12px;padding:4px 0}#displayToolbar{display:none;position:fixed;z-index:25;top:12px;left:12px;gap:7px;align-items:center;padding:8px;background:#071425d9;border:1px solid #3b648b;border-radius:12px;cursor:default}#displayToolbar button{padding:8px 12px}body.output #displayToolbar{display:flex;opacity:.03;transition:opacity .2s}body.output #displayToolbar:hover,body.output #displayToolbar:focus-within{opacity:1}body.output:hover #displayToolbar{opacity:.88}@media(max-width:540px){.roleGrid{grid-template-columns:1fr}.roleChoice{min-height:155px}}
 </style></head><body>
-<div id="roleGate" hidden><div class="roleBox"><div style="font-size:43px">📽️</div><h1>Projection Mapping Studio</h1><p>Wybierz, jak chcesz używać tej strony. Filmy <b>01.webm–13.webm</b> powinny być obok <b>index.html</b>.</p><div class="roleGrid"><button id="chooseControl" class="roleChoice"><span class="emoji">🎛️</span><b>Sterowanie</b><small>Pełny edytor scen, 13 filmów, warstwy, efekty i regulacja mappingu</small></button><button id="chooseDisplay" class="roleChoice"><span class="emoji">🖥️</span><b>Wyświetlacz</b><small>Czysty obraz projekcji bez panelu. Idealny na projektor lub drugi monitor</small></button></div><p style="font-size:12px">Synchronizacja automatyczna działa w kartach lub oknach tej samej przeglądarki. Sterowanie z innego telefonu/komputera wymaga osobnej usługi sieciowej.</p></div></div>
-<div id="displayToolbar"><button id="displayStart">▶ Odtwarzaj</button><button id="displayFullscreen">⛶ Pełny ekran</button><button id="displayBack">⚙ Zmień tryb</button></div>
+
 <div id="app"><aside id="panel"><h1>📽️ Projection Mapping Studio</h1><div class="sub">13 WEBM • WebGL • GitHub Pages • bez bibliotek</div>
 <div class="line"><button id="playBtn">▶ Start</button><button id="prevBtn">⏮</button><button id="nextBtn">⏭</button><button id="fullscreenBtn">⛶</button></div>
 <div id="status">Ładowanie odtwarzacza…</div><input id="timeline" type="range" min="0" max="1000" value="0"><div class="metric"><span id="clock">00:00 / 00:00</span><span id="filmLabel">01.webm</span></div>
-<div class="line"><button id="outputBtn">🖥 Otwórz wyświetlacz</button><button id="hideBtn">👁 Ukryj UI (H)</button></div>
-<div class="box"><h2>🎛️ Tryby ScreenWall</h2><div id="connectionState">Wyświetlacz: niepodłączony</div><div class="roleTools"><button id="copyDisplayLink">🔗 Kopiuj link wyświetlacza</button><button id="chooseRoleAgain">⇄ Zmień tryb</button></div><p class="sub">Otwórz wyświetlacz w drugiej karcie lub oknie <b>tej samej przeglądarki</b>. Zmiany z panelu sterowania będą przesyłane na żywo.</p></div>
+<div class="line"><button id="hideBtn">👁 Ukryj UI (H)</button></div>
+
 <div class="tabs"><button data-tab="layers" class="active">Warstwy</button><button data-tab="media">Filmy</button><button data-tab="effects">Efekty</button><button data-tab="project">Projekt</button></div>
 <section id="tab-layers" class="tab active"><h2>Sceny</h2><div class="line"><select id="sceneSelect" style="flex:1"></select><button id="sceneAdd">+ Scena</button><button id="sceneDelete" class="warn">Usuń</button></div>
 <h2>Powierzchnie / warstwy</h2><div id="layersList"></div><div class="line"><button id="layerAdd">+ Powierzchnia</button><button id="layerDuplicate">⧉ Duplikuj</button><button id="layerDelete" class="warn">✕</button></div><div class="line"><button id="layerUp">↑ Wyżej</button><button id="layerDown">↓ Niżej</button><button id="undo">↶ Cofnij</button><button id="redo">↷ Ponów</button></div>
@@ -25,13 +21,11 @@
 </aside><main id="stageWrap"><canvas id="stage"></canvas><div id="gridOverlay"></div><div id="handles"></div><span id="outTag">OUTPUT • przeciągnij punkty siatki • ekran projektora</span><div id="toast"></div></main></div><div id="outputHint">F — pełny ekran • H — pokaż panel</div><video id="video" muted autoplay playsinline preload="auto" style="display:none"></video>
 <script>
 'use strict';
-const $=id=>document.getElementById(id), params=new URLSearchParams(location.search), role=params.get('role');
-const outMode=role==='display'||params.get('output')==='1';
-const roleSelected=outMode||role==='control';
-const displayUrl=new URL(location.href);displayUrl.search='?role=display';displayUrl.hash='';
-const controlUrl=new URL(location.href);controlUrl.search='?role=control';controlUrl.hash='';
+const $=id=>document.getElementById(id);
+const outMode=false;
+const roleSelected=true;
 const FILES=Array.from({length:13},(_,i)=>String(i+1).padStart(2,'0')+'.webm');
-const STORAGE='projection-studio-v3',CHANNEL='projection-studio-live-v3';
+const STORAGE='projection-studio-v3';
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const clone=x=>JSON.parse(JSON.stringify(x));
 const uid=()=>Math.random().toString(36).slice(2,10);
@@ -41,16 +35,11 @@ let state=defaults();try{let s=JSON.parse(localStorage.getItem(STORAGE));if(s&&A
 function sanitize(){if(!state.scenes.length)state=defaults();state.scene=clamp(Number(state.scene)||0,0,state.scenes.length-1);for(const scene of state.scenes){if(!Array.isArray(scene.layers))scene.layers=[];scene.layers=scene.layers.filter(l=>l&&[2,3,5,7].includes(l.n)&&Array.isArray(l.points)&&l.points.length===l.n*l.n&&l.points.every(p=>Array.isArray(p)&&p.length===2&&p.every(Number.isFinite)));}state.index=clamp(Number(state.index)||0,0,12);}
 sanitize();
 const vid=$('video'),preview=$('preview'),stage=$('stage'),wrap=$('stageWrap');
-let bc=null;try{bc=new BroadcastChannel(CHANNEL);}catch(e){}
-let lastDisplayPing=0;
-function pingDisplay(){if(outMode&&bc)bc.postMessage({type:'display-alive'});}
-function updateDisplayConnection(){if(outMode)return;const el=$('connectionState');if(!el)return;const online=Date.now()-lastDisplayPing<5000;el.textContent=online?'🟢 Wyświetlacz połączony':'⚪ Wyświetlacz: brak aktywnego okna';}
-setInterval(()=>{if(outMode)pingDisplay();else updateDisplayConnection();},1800);
 let history=[],future=[],drag=null,activePoint=-1,loadingErrorCount=0,playingIntent=true,frameCounter=0,fps=0,lastFPS=performance.now(),lastBroadcast=0,toastTimeout;
 function scene(){return state.scenes[state.scene];}function layer(){return scene().layers.find(l=>l.id===state.selected)||null;}
 function snapshot(){history.push(clone(state));if(history.length>60)history.shift();future.length=0;}
 function persist(){if(outMode)return;try{localStorage.setItem(STORAGE,JSON.stringify(state));}catch(e){showToast('Brak miejsca na zapis w przeglądarce');}broadcast();}
-function broadcast(){if(!outMode&&bc)bc.postMessage({type:'state',state:clone(state),index:state.index,time:vid.currentTime||0,paused:vid.paused});}
+function broadcast(){}
 function commit(){sanitize();persist();renderUI();renderHandles();}
 function change(fn){snapshot();fn();commit();}
 function showToast(s){if(outMode)return;const t=$('toast');t.textContent=s;t.style.display='block';clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>t.style.display='none',3200);}
@@ -69,15 +58,6 @@ $('timeline').addEventListener('input',e=>{if(vid.duration)vid.currentTime=e.tar
 $('playBtn').onclick=playToggle;$('nextBtn').onclick=()=>advance(1);$('prevBtn').onclick=()=>advance(-1);
 $('fullscreenBtn').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen?.().catch(()=>showToast('Pełny ekran jest niedostępny'));};
 $('hideBtn').onclick=()=>document.body.classList.toggle('uiHidden');
-$('outputBtn').onclick=()=>{const win=window.open(displayUrl.href,'projectionOutput','width=1280,height=720');if(!win)showToast('Odblokuj wyskakujące okna.');else{setTimeout(broadcast,600);showToast('Przenieś okno na projektor i włącz pełny ekran.');}};
-$('copyDisplayLink').onclick=async()=>{try{await navigator.clipboard.writeText(displayUrl.href);showToast('Skopiowano link wyświetlacza');}catch(e){prompt('Skopiuj adres wyświetlacza:',displayUrl.href);}};
-$('chooseRoleAgain').onclick=()=>{location.href=location.pathname;};
-$('chooseControl').onclick=()=>{location.href=controlUrl.href;};
-$('chooseDisplay').onclick=()=>{location.href=displayUrl.href;};
-$('displayStart').onclick=()=>{vid.play().catch(()=>{});};
-$('displayFullscreen').onclick=()=>{document.documentElement.requestFullscreen?.().catch(()=>{});};
-$('displayBack').onclick=()=>{location.href=location.pathname;};
-if(!roleSelected)$('roleGate').hidden=false;
 function renderScenes(){const box=$('sceneSelect');box.innerHTML='';state.scenes.forEach((s,i)=>box.add(new Option(s.name,i)));box.value=state.scene;}
 function renderLayers(){const list=$('layersList');list.textContent='';scene().layers.forEach((l,i)=>{const r=document.createElement('div');r.className='rowItem'+(l.id===state.selected?' selected':'');const vis=document.createElement('button');vis.textContent=l.visible?'👁':'◯';vis.title='Widoczność';vis.onclick=()=>change(()=>l.visible=!l.visible);const lock=document.createElement('button');lock.textContent=l.locked?'🔒':'🔓';lock.title='Zablokuj';lock.onclick=()=>change(()=>l.locked=!l.locked);const name=document.createElement('span');name.className='name';name.textContent=`${i+1}. ${l.name}`;name.onclick=()=>{state.selected=l.id;renderUI();renderHandles();};r.append(vis,name,lock);list.append(r);});}
 function renderPlaylist(){const list=$('playlist');list.textContent='';FILES.forEach((f,i)=>{const b=document.createElement('button');b.textContent=(i===state.index?'▶ ':'')+f;b.style.cssText='margin:3px;padding:7px;width:calc(33.33% - 6px)';if(i===state.index)b.classList.add('active');b.onclick=()=>chooseFilm(i);list.append(b);});}
@@ -149,7 +129,6 @@ for(const l of scene().layers)if(l.visible)drawLayer(l,now);
 if(!outMode&&state.showFPS){frameCounter++;if(now-lastFPS>1000){fps=Math.round(frameCounter*1000/(now-lastFPS));frameCounter=0;lastFPS=now;$('outTag').textContent=`OUTPUT • ${fps} FPS • ${stage.width}×${stage.height}`;}}
 if(!outMode&&now-lastBroadcast>1500){lastBroadcast=now;broadcast();}}
 requestAnimationFrame(render);
-if(bc){bc.onmessage=e=>{const d=e.data;if(outMode&&d?.type==='state'){const oldIndex=state.index;state=d.state;sanitize();if(oldIndex!==state.index||!vid.src)chooseFilm(state.index,!d.paused);if(Math.abs((vid.currentTime||0)-d.time)>1.2&&Number.isFinite(d.time)){try{vid.currentTime=d.time;}catch(e){}}vid.playbackRate=state.speed;if(d.paused)vid.pause();else if(vid.paused)vid.play().catch(()=>{});}else if(!outMode&&d?.type==='request')broadcast();else if(!outMode&&d?.type==='display-alive'){lastDisplayPing=Date.now();updateDisplayConnection();}};}
-if(outMode){document.body.classList.add('output');vid.muted=true;chooseFilm(state.index,state.autostart);bc?.postMessage({type:'request'});pingDisplay();}else{renderUI();renderHandles();if(roleSelected)chooseFilm(state.index,state.autostart);else setStatus('Wybierz Sterowanie albo Wyświetlacz.');}
+renderUI();renderHandles();chooseFilm(state.index,state.autostart);
 addEventListener('beforeunload',()=>{if(!outMode)try{localStorage.setItem(STORAGE,JSON.stringify(state));}catch(e){}});
 </script></body></html>
